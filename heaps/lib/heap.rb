@@ -54,7 +54,7 @@ class BinaryMinHeap
         array[idx], array[parent_idx] = array[parent_idx], array[idx]
       end
     end
-    BinaryMinHeap.heapify_down(array, parent_idx + 1, array.length, &prc)
+    BinaryMinHeap.heapify_down(array[parent_idx + 1..-1], 0, array[parent_idx + 1..-1].length, &prc)
     array
   end
 
