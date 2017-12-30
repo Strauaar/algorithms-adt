@@ -15,6 +15,20 @@ class LRUCache
   end
 
   def get(key)
+    if !@store.include?(key)
+      value = @prc.call(key)
+      @store.append(key, value)
+      @map.set(key, @store.last)
+      eject! if count > @max
+      return value
+    else
+      value = @store.get(key)
+      @store.remove(key)
+      @store.append(key, value)
+      @map.set(key, @store.last)
+      return value
+    end
+
   end
 
   def to_s
@@ -32,5 +46,7 @@ class LRUCache
   end
 
   def eject!
+    @map.delete(@store.first.key)
+    @store.remove(@store.first.key)
   end
 end
