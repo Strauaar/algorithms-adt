@@ -14,6 +14,10 @@ class Array
           string_bit += (char.ord * (i + 1))
         end
         string_bit
+      elsif el.class == Array
+        el.hash
+      elsif el.class == Symbol
+        el.to_s.ord * (i + 2)
       else
         el.ord * (i + 1)
       end
@@ -24,6 +28,7 @@ end
 
 class String
   def hash
+    self.split('').hash
   end
 end
 
@@ -31,6 +36,6 @@ class Hash
   # This returns 0 because rspec will break if it returns nil
   # Make sure to implement an actual Hash#hash method
   def hash
-    0
+    self.to_a.hash
   end
 end
