@@ -20,19 +20,23 @@ class QuickSort
 
   # In-place.
   def self.sort2!(array, start = 0, length = array.length, &prc)
-    return array if array.length <= 1
-    partition_index = QuickSort.partition(array, 0, array.length)
-    QuickSort.sort2!(array[0..partition_index], 0, array[0..partition_index].length) + QuickSort.partition(array[partition_index + 1..-1], partition_index + 1, array[partition_index + 1..-1].length)
+    return array if length <= 1
+    partition_index = QuickSort.partition(array, 0, length, &prc)
+    array[0..partition_index] = QuickSort.sort2!(array[0..partition_index], 0, array[0..partition_index].length, &prc)
+    array[partition_index +1 ..-1] = QuickSort.sort2!(array[partition_index + 1..-1], partition_index + 1, array[partition_index + 1..-1].length, &prc)
+    array
   end
 
   def self.partition(array, start, length, &prc)
+    prc = prc ? prc : Proc.new { |el1, el2| el1 <=> el2 }
     partition_index = start
     pivot_value = array[start]
     for i in start + 1...(start + length)
-      if array[i] < pivot_value && i > partition_index + 1
+      comparison = prc.call(array[i], pivot_value)
+      if comparison == -1 && i > partition_index + 1
         array[partition_index + 1], array[i] = array[i], array[partition_index + 1]
         partition_index += 1
-      elsif array[i] < pivot_value
+      elsif comparison == -1
         partition_index += 1
       end
     end
