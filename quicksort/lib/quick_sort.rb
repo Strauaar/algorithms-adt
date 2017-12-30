@@ -20,7 +20,9 @@ class QuickSort
 
   # In-place.
   def self.sort2!(array, start = 0, length = array.length, &prc)
+    return array if array.length <= 1
     partition_index = QuickSort.partition(array, 0, array.length)
+    QuickSort.sort2!(array[0..partition_index], 0, array[0..partition_index].length) + QuickSort.partition(array[partition_index + 1..-1], partition_index + 1, array[partition_index + 1..-1].length)
   end
 
   def self.partition(array, start, length, &prc)
