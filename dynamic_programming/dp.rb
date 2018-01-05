@@ -13,6 +13,12 @@ class DynamicProgramming
     @blair_cache[n-1] + @blair_cache[n-2] + (2*(n-1)-1)
   end
 
+  def frog_hops_bottom_up(n)
+  end
+
+  def frog_cache_builder(n)
+  end
+
 end
 
 dp = DynamicProgramming.new

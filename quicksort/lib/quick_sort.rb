@@ -28,6 +28,7 @@ class QuickSort
   end
 
   def self.partition(array, start, length, &prc)
+    #default prc is for sorting in ascending order
     prc = prc ? prc : Proc.new { |el1, el2| el1 <=> el2 }
     partition_index = start
     pivot_value = array[start]
