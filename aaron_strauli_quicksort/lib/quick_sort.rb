@@ -45,19 +45,4 @@ class QuickSort
     array[start], array[partition_index] = array[partition_index], array[start]
     partition_index
   end
-
-  def self.kth_el(array, k)
-    return nil if array.length == 0
-    partition_index = QuickSort.partition(array, 0, array.length)
-    if partition_index == k - 1
-      return array[partition_index]
-    elsif partition_index > k - 1
-      QuickSort.kth_el(array[0...partition_index], k)
-    else
-      QuickSort.kth_el(array[partition_index + 1..-1], k - partition_index - 1)
-    end
-  end
-
 end
-
-p QuickSort.kth_el([2,1,300,6, 12, 44], 6)
